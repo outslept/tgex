@@ -10,18 +10,23 @@
     "telegram"
   ],
   "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "bin": "./dist/index.mjs",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./package.json": "./package.json"
+  },
   "files": [
     "dist"
   ],
-  "type": "module",
   "scripts": {
     "build": "tsdown",
+    "dev": "node src/index.ts",
     "start": "node dist/index.mjs",
-    "check": "tsc --noEmit",
-    "lint": "oxlint",
-    "lint:fix": "oxlint --fix",
-    "fmt": "oxfmt",
-    "fmt:check": "oxfmt --check"
+    "check": "tsc --noEmit && oxlint && oxfmt --check",
+    "fix": "oxlint --fix && oxfmt",
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "@types/node": "^26.3.0",
@@ -31,6 +36,6 @@
     "typescript": "^7.0.2"
   },
   "engines": {
-    "node": ">=20.12"
+    "node": ">=22.6"
   }
 }
