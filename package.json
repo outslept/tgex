@@ -10,16 +10,16 @@
     "telegram"
   ],
   "license": "MIT",
+  "bin": "./dist/index.mjs",
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "sideEffects": false,
-  "bin": "./dist/index.mjs",
   "exports": {
     ".": "./dist/index.mjs",
     "./package.json": "./package.json"
   },
-  "files": [
-    "dist"
-  ],
   "scripts": {
     "build": "tsdown",
     "dev": "node src/index.ts",
