@@ -1,51 +1,39 @@
-## chatlyzer
+# chatlyzer
 
-A lightweight tool for analyzing chat data from Telegram JSON exports.
-
-## Introduction
-
-**Chatlyzer** reads a Telegram `result.json` export and prints per-user
-statistics:
-
-- **Message counts** by user, with each user's share of the chat.
-- **Media usage** — photos, video messages, video files, animations, voice
-  messages, audio files, stickers.
-- **Peak activity** — the busiest day and hour.
-
-Zero dependencies; needs Node ≥ 20.12.
+Zero-dependency CLI tool for analyzing Telegram JSON exports (`result.json`). Supports both single-chat and full-account exports.
 
 ## Usage
 
-1. Export from Telegram Desktop:
-   - a single chat: open it → ⋮ → **Export chat history** → **Machine-readable JSON**
-   - your whole account: **Settings → Advanced → Export Telegram Data**
-2. Put `result.json` next to the script.
-3. Run it:
+1. Export your chat or account data in **Telegram Desktop**:  
+   `Settings → Advanced → Export Telegram data` → select **Machine-readable JSON**.
+2. Run `chatlyzer` in the directory containing `result.json`:
 
-```sh
-npx tsx src/index.ts
+```bash
+npx chatlyzer
+# or directly with Node >= 22.6:
+node src/index.ts
 ```
 
-Output:
+## Example Output
 
-```
-Total 1234
+```text
+Total 4820
 
 Alice
-  messages      500  40.5%
-  photos        100  20.0%
-  video msgs     10  2.0%
+  messages     2651  55.0%
+  Photos        142  5.4%
+  Voice          89  3.4%
+  Stickers      210  7.9%
 
 Bob
-  messages      734  59.5%
-  stickers      211  28.7%
+  messages     2169  45.0%
+  Video msgs     34  1.6%
+  Animations     65  3.0%
+  Stickers      120  5.5%
 
-Peak Friday 21:00–22:00  140
+Peak Friday 21:00–22:00  184
 ```
 
-## Notes
-
-- Full exports aggregate all chats, left ones included; single-chat exports work unchanged.
-- Service messages (joins, pins, calls) are excluded from all counts.
-- Timestamps are interpreted in your local timezone — peak hours depend on the machine you run it on.
-- Public group and channel exports contain only your own messages (Telegram limitation).
+- **messages**: user's share of all messages in the export (service events like joins/pins are excluded).
+- **media rows**: share of that specific user's messages (zero-count media types are hidden).
+- **Peak**: the single weekday + 1-hour window with the highest message volume.
