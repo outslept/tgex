@@ -59,10 +59,7 @@ for (const m of messages) {
 function analyzeExport(input: ExportInput, options?: AnalyzeOptions): ExportStats;
 function createMediaCounts(): MediaCounts;
 
-type ExportInput =
-  | TelegramExport
-  | readonly TelegramChat[]
-  | readonly TelegramMessage[];
+type ExportInput = TelegramExport | readonly TelegramChat[] | readonly TelegramMessage[];
 
 interface AnalyzeOptions extends ResolveOptions {
   filter?: (message: TelegramRegularMessage) => boolean;
@@ -97,7 +94,7 @@ interface MediaCounts {
 
 interface ActivitySlot {
   dayOfWeek: number; // 0 (Sunday) .. 6 (Saturday)
-  hour: number;      // 0 .. 23
+  hour: number; // 0 .. 23
   count: number;
 }
 

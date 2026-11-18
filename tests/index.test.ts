@@ -144,14 +144,10 @@ test("getMediaKind and isMediaPathExported classify media accurately", () => {
   expect(isMediaPathExported(undefined)).toBe(false);
   expect(isMediaPathExported("")).toBe(false);
   expect(
-    isMediaPathExported(
-      "(File not included. Change data exporting settings to download.)",
-    ),
+    isMediaPathExported("(File not included. Change data exporting settings to download.)"),
   ).toBe(false);
   expect(
-    isMediaPathExported(
-      "(File exceeds maximum size. Change data exporting settings to download.)",
-    ),
+    isMediaPathExported("(File exceeds maximum size. Change data exporting settings to download.)"),
   ).toBe(false);
   expect(isMediaPathExported("(Folder)/photo.jpg")).toBe(true);
   expect(isMediaPathExported("photos/photo_1@01-01-2026.jpg")).toBe(true);

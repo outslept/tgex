@@ -1,32 +1,49 @@
 {
-  "name": "chatlyzer",
+  "name": "tgex",
   "version": "0.1.0",
-  "description": "A lightweight tool for analyzing chat data from Telegram JSON exports",
+  "description": "Zero-dependency TypeScript utilities and analytics for Telegram Desktop JSON exports (result.json)",
   "keywords": [
     "analytics",
     "chat",
-    "cli",
     "export",
     "telegram"
   ],
+  "homepage": "https://github.com/outslept/tgex#readme",
+  "bugs": {
+    "url": "https://github.com/outslept/tgex/issues"
+  },
   "license": "MIT",
-  "bin": "./dist/index.mjs",
+  "author": "outslept",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/outslept/tgex.git"
+  },
   "files": [
     "dist"
   ],
   "type": "module",
   "sideEffects": false,
   "exports": {
-    ".": "./dist/index.mjs",
+    ".": {
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
+    },
     "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "tsdown",
-    "dev": "node src/index.ts",
-    "start": "node dist/index.mjs",
-    "check": "tsc --noEmit && oxlint && oxfmt --check",
-    "fix": "oxlint --fix && oxfmt",
-    "prepublishOnly": "npm run build"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check",
+    "check": "pnpm run fmt:check && pnpm run lint && pnpm run typecheck",
+    "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
     "@types/node": "^26.3.0",
@@ -36,7 +53,14 @@
     "typescript": "^7.0.2",
     "vitest": "^5.1.0"
   },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "12.18.0",
+      "onFail": "download"
+    }
+  },
   "engines": {
-    "node": ">=22.6"
+    "node": ">=24"
   }
 }
